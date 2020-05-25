@@ -58,27 +58,25 @@ class Solution {
         int[][] sec2 = new int[a.length][b.length];
         int[] len2 = new int[a.length];
 
+        out:
         for (int ii = 0; ii < pairs.length; ii++) {
             int ai = pairs[ii][0];
+
             if (len2[ai] == 0) {
                 sec2[ai][len2[ai]++] = pairs[ii][1];
 
-                for (int i = 0; i < a.length; i++) {
-                    for (int k = 0; k < len2[i]; k++) {
-                        for (int j = 0; j < i; j++) {
-                            for (int l = 0; l < len2[j]; l++) {
-                                if (sec2[i][k] <= sec2[j][l]) {
-                                    return max;
-                                }
-                            }
+                for (int j = 0; j < ai; j++) {
+                    for (int l = 0; l < len2[j]; l++) {
+                        if (sec2[ai][0] <= sec2[j][l]) {
+                            continue out;
                         }
+                    }
+                }
 
-                        for (int j = i + 1; j < a.length; j++) {
-                            for (int l = 0; l < len2[j]; l++) {
-                                if (sec2[i][k] >= sec2[j][l]) {
-                                    return max;
-                                }
-                            }
+                for (int j = ai + 1; j < a.length; j++) {
+                    for (int l = 0; l < len2[j]; l++) {
+                        if (sec2[ai][0] >= sec2[j][l]) {
+                            continue out;
                         }
                     }
                 }
