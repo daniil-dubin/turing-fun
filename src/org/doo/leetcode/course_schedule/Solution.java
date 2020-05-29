@@ -23,7 +23,7 @@ class Solution {
 
         for (int i = 0; i < numCourses; i++) {
             if (!seen[i]) {
-                if (!mark(i, i + 1)) {
+                if (!mark(i, 1)) {
                     return false;
                 }
             }
