@@ -3,7 +3,8 @@ package org.doo.leetcode.edit_distance;
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println(new Solution().minDistance("trinitrophenylmethylnitramine", "dinitrophenylhydrazine"));
+//        System.out.println(new Solution().minDistance("trinitrophenylmethylnitramine", "dinitrophenylhydrazine"));
+        System.out.println(new Solution().minDistance("kitten", "sitting"));
     }
 
     public int minDistance(String word1, String word2) {
@@ -29,5 +30,27 @@ class Solution {
         } else {
             return min;
         }
+    }
+
+    public int minDistanceFast(String str1, String str2) {
+        int[][] memo = new int[str1.length() + 1][str2.length() + 1];
+
+        for (int i = 0; i <= str1.length(); i++) {
+            for (int j = 0; j <= str2.length(); j++) {
+                if (i == 0) {
+                    memo[i][j] = j;
+                } else if (j == 0) {
+                    memo[i][j] = i;
+                } else if (str1.charAt(i - 1) == str2.charAt(j - 1)) {
+                    memo[i][j] = memo[i - 1][j - 1];
+                } else {
+                    memo[i][j] = Math.min(1 + memo[i][j - 1],
+                            Math.min(1 + memo[i - 1][j],
+                                    1 + memo[i - 1][j - 1]));
+                }
+            }
+        }
+
+        return memo[str1.length()][str2.length()];
     }
 }
